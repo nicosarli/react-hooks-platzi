@@ -1,12 +1,15 @@
-:root {
-  --background-App: #fff;
-  --fontColor-App: #000;
-  --borderContent: 2px solid burlywood;
+.App {
+  text-align: center;
 }
 
-.App {
-  background: var(--background-App);
-  color: var(--fontColor-App);
+.bg-light {
+  background: #fafafa;
+  color: #252525;
+}
+
+.bg-dark {
+  background: #252525;
+  color: #fafafa;
 }
 
 .Header {

@@ -1,27 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const handleClick = () => {
     setDarkMode(!darkMode);
+    theme === "bg-light" ? setTheme("bg-dark") : setTheme("bg-light");
   };
-
-  if (darkMode) {
-    document.documentElement.style.setProperty("--background-App", "#000");
-    document.documentElement.style.setProperty("--fontColor-App", "#fff");
-    document.documentElement.style.setProperty(
-      "--borderContent",
-      "2px solid burlywood"
-    );
-  } else {
-    document.documentElement.style.setProperty("--background-App", "#fff");
-    document.documentElement.style.setProperty("--fontColor-App", "#000");
-    document.documentElement.style.setProperty(
-      "--borderContent",
-      "2px solid black"
-    );
-  }
 
   return (
     <div className="Header">
