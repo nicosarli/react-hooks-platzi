@@ -1,0 +1,52 @@
+:root {
+  --background-App: #fff;
+  --fontColor-App: #000;
+  --borderContent: 2px solid burlywood;
+}
+
+.App {
+  background: var(--background-App);
+  color: var(--fontColor-App);
+}
+
+.Header {
+  padding: 1em 0;
+  background: var(--background-Header);
+}
+
+.Characters {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  border: var(--borderContent);
+}
+
+.Character-Card {
+  width: 23%;
+  border: 3px solid brown;
+  margin: auto;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.Character-Card h2 {
+  padding: 0.5em 0;
+}
+
+.Character-Card p:last-child {
+  padding-bottom: 1em;
+}
+
+.Character-Card img {
+  width: 100%;
+}
+
+button {
+  border: none;
+  margin: 1em;
+  padding: 0.5em 2em;
+  border-radius: 50px;
+  background: brown;
+}
