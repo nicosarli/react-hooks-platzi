@@ -1,5 +1,13 @@
-import React, { useState, useEffect, useReducer, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useMemo,
+  useRef,
+  useCallback,
+} from "react";
 import "../styles/Characters.css";
+import Search from "./Search";
 
 const initialState = {
   favorites: [],
@@ -51,9 +59,13 @@ const Characters = () => {
     });
   };
 
-  const handleSearch = () => {
+  // const handleSearch = () => {
+  //   setSearch(searchInput.current.value);
+  // };
+
+  const handleSearch = useCallback(() => {
     setSearch(searchInput.current.value);
-  };
+  }, []);
 
   // const filteredUsers = characters.filter((user) => {
   //   return user.name.toLowerCase().includes(search.toLowerCase());
@@ -69,14 +81,11 @@ const Characters = () => {
 
   return (
     <div className="Container">
-      <div>
-        <input
-          type="text"
-          ref={searchInput}
-          value={search}
-          onChange={handleSearch}
-        />
-      </div>
+      <Search
+        search={search}
+        searchInput={searchInput}
+        handleSearch={handleSearch}
+      />
       <h1>Personajes Favoritos</h1>
       <div className="FavoriteCharacters">
         {favorites.favorites.map((favorite) => (
