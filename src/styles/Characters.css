@@ -53,3 +53,26 @@ button {
   border-radius: 50px;
   background: brown;
 }
+
+.Container {
+  padding: 0 1em;
+}
+
+.FavoriteCharacters {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.FavoriteCharacters img {
+  width: 50px;
+  margin: 0 auto;
+  border-radius: 50px;
+}
+
+.FavoriteCharacters li {
+  list-style: none;
+  margin: 0 10px;
+}

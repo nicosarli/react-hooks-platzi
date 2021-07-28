@@ -1,8 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "../styles/Characters.css";
+
+const initialState = {
+  favorites: [],
+};
+
+const favoriteReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TO_FAVORITE":
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      };
+
+    case "DELETE_TO_FAVORITE":
+      return {
+        ...state,
+        favorites: [
+          ...state.favorites.filter(
+            (favorite) => favorite.id !== action.payload.id
+          ),
+        ],
+      };
+    default:
+      return state;
+  }
+};
 
 const Characters = () => {
   const [characters, setCharacters] = useState([]);
+  const [favorites, dispatch] = useReducer(favoriteReducer, initialState);
 
   useEffect(() => {
     fetch("https://rickandmortyapi.com/api/character/")
@@ -10,20 +37,45 @@ const Characters = () => {
       .then((data) => setCharacters(data.results));
   }, []);
 
+  const isCharacterInFavorites = (favorite) =>
+    favorites.favorites.find((character) => character.id === favorite.id);
+
+  const handleClick = (favorite) => {
+    dispatch({
+      type: !!isCharacterInFavorites(favorite)
+        ? "DELETE_TO_FAVORITE"
+        : "ADD_TO_FAVORITE",
+      payload: favorite,
+    });
+  };
+
   return (
-    <div className="Characters">
-      {characters.map(({ image, name, id, status, species }) => (
-        <div key={id} className="Character-Card">
-          <img src={image} alt="ImageCharacter" />
-          <h2>{name}</h2>
-          <p>
-            <b>Status:</b> {status}
-          </p>
-          <p>
-            <b>Specie:</b> {species}
-          </p>
-        </div>
-      ))}
+    <div className="Container">
+      <h1>Personajes Favoritos</h1>
+      <div className="FavoriteCharacters">
+        {favorites.favorites.map((favorite) => (
+          <li key={favorite.id}>
+            <img src={favorite.image} alt={`Imagen de ${favorite.name}`} />
+          </li>
+        ))}
+      </div>
+      <div className="Characters">
+        {characters.map((character) => (
+          <div key={character.id} className="Character-Card">
+            <img src={character.image} alt="ImageCharacter" />
+            <h2>{character.name}</h2>
+            <p>
+              <b>Status:</b> {character.status}
+            </p>
+            <p>
+              <b>Specie:</b> {character.species}
+            </p>
+            <button type="button" onClick={() => handleClick(character)}>
+              Agregar a favoritos
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
